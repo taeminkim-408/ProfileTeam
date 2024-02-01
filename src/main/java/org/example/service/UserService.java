@@ -7,6 +7,9 @@ import org.example.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
+import java.util.List;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -22,4 +25,20 @@ public class UserService {
                 .build();
         userRepository.save(user);
     }
+    public List<User> read() {
+        return userRepository.findAll();
+    }
+
+    public User update(Long id, UserRequest request) {
+        User user = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("User not found with id " + id));
+        user.setUserName(request.getUserName());
+        user.setUserEmail(request.getUserEmail());
+        user.setUserImage(request.getUserImage());
+        return userRepository.save(user);
+    }
+
+    public void delete(Long id) {
+        userRepository.deleteById(id);
+    }
+
 }
