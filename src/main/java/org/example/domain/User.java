@@ -1,9 +1,6 @@
 package org.example.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.Entity;
@@ -16,6 +13,7 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,15 +24,5 @@ public class User {
     @Nullable
     private String userImage;
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
 
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
-    }
-
-    public void setUserImage(@Nullable String userImage) {
-        this.userImage = userImage;
-    }
 }

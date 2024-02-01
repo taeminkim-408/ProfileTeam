@@ -15,24 +15,24 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
 
-    @PostMapping("/insta")
-    public void userCreate (@RequestBody UserRequest userRequest){
+    @PostMapping("/user/create")
+    public void userCreate (@RequestBody UserRequest userRequest) {
         userService.create(userRequest);
     }
 
-    @GetMapping("/")
+    @GetMapping("/user/read")
     public ResponseEntity<List<User>> userRead() {
         List<User> users = userService.read();
         return ResponseEntity.ok(users);
     }
 
-    @PatchMapping("/insta/{id}")
+    @PatchMapping("/user/update/{id}")
     public ResponseEntity<User> userUpdate(@PathVariable Long id, @RequestBody UserRequest userRequest) {
         User updatedUser = userService.update(id, userRequest);
         return ResponseEntity.ok(updatedUser);
     }
 
-    @DeleteMapping("/insta/{id}")
+    @DeleteMapping("/user/delete/{id}")
     public ResponseEntity<Void> userDelete(@PathVariable Long id) {
         userService.delete(id);
         return ResponseEntity.ok().build();
