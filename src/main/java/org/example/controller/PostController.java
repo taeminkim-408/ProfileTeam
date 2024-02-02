@@ -25,6 +25,12 @@ public class PostController {
         return ResponseEntity.ok(posts);
     }
 
+    @GetMapping("/post/readbyid/{userId}")
+    public ResponseEntity<List<Post>> postReadByUserId(@PathVariable Long userId) {
+        List<Post> posts = postService.postReadByUserId(userId);
+        return ResponseEntity.ok(posts);
+    }
+
     @PatchMapping("/post/update/{id}")
     public ResponseEntity<Post> postUpdate(@PathVariable Long id, @RequestBody PostRequest postRequest) {
         Post updatedPost = postService.update(id, postRequest);

@@ -6,8 +6,14 @@ import org.example.domain.User;
 import org.example.dto.request.PostRequest;
 import org.example.repository.PostRepository;
 import org.example.repository.UserRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.GetMapping;
+
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
@@ -18,6 +24,8 @@ import java.util.List;
 public class PostService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
+    private static final Logger logger = LoggerFactory.getLogger(PostService.class);
+
 
     public void create( PostRequest request ){
         User user = userRepository.findById(request.getUserId())
@@ -34,8 +42,12 @@ public class PostService {
         postRepository.save(post);
     }
 
-    public List<Post> read() {
+    public List<Post> read()  {
         return postRepository.findAll();
+    }
+
+    public List<Post> postReadByUserId(Long userId) {
+        return postRepository.findByUser_UserId(userId);
     }
 
     public Post update(Long id, PostRequest request) {
