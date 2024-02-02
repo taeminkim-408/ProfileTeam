@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 public class PostResponse {
     private Long postId;
     private String postText;
-    private Long postLike;
+    private long postLike;
     private String postImage;
     private LocalDateTime regDate;
     private LocalDateTime ModDate;
