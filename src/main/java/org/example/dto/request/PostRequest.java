@@ -14,7 +14,7 @@ import lombok.Setter;
 public class PostRequest {
     private Long postId;
     private String postText;
-    private Long postLike;
+    private long postLike;
     private String postImage;
     private Long userId;
 }
