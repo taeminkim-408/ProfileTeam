@@ -18,7 +18,8 @@ public class Post {
     private Long postId;
 
     private String postText;
-    private Long postLike;
+    @Column(nullable = false)
+    private long postLike;
 
     @Nullable
     private String postImage;
