@@ -4,36 +4,38 @@ import lombok.*;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class Comment {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cId;
-
+    @Nullable
     private String cName;
-
     @Column(nullable = false)
     private String cComment;
-
-    @Column(nullable = false)
-    private Timestamp regDate;
-
     @Nullable
     private String c_Image;
 
+    @Column(name = "regDate", nullable = false, updatable = false)
+    private LocalDateTime regDate;
+
     @ManyToOne
-    @JoinColumn(name = "postId", nullable = false)
+    @JoinColumn(name = "postId")
     private Post post;
 
     @ManyToOne
-    @JoinColumn(name = "userId", nullable = false)
+    @JoinColumn(name = "userId")
     private User user;
+
+    @PrePersist
+    protected void onCreate() {
+        this.regDate = LocalDateTime.now();
+    }
 }

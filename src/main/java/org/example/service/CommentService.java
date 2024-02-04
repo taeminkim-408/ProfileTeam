@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
-import java.sql.Timestamp;
 import java.util.List;
 
 @Service
@@ -23,31 +22,26 @@ public class CommentService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
 
-    public void createComment(CommentRequest request) {
-        try {
-            Post post = postRepository.findById(request.getPostId())
-                    .orElseThrow(() -> new EntityNotFoundException("Post not found with id: " + request.getPostId()));
+    public void create( CommentRequest request ){
+        User user = userRepository.findById(request.getUserId())
+                .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + request.getUserId()));
 
-            User user = userRepository.findById(request.getUserId())
-                    .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + request.getUserId()));
+        Post post = postRepository.findById(request.getPostId())
+                .orElseThrow(() -> new EntityNotFoundException("Post not found with id: " + request.getPostId()));
 
-            Comment comment = Comment.builder()
-                    .cName(request.getCName())
-                    .cComment(request.getCComment())
-                    .c_Image(request.getC_Image())
-                    .regDate(new Timestamp(System.currentTimeMillis()))
-                    .post(post)
-                    .user(user)
-                    .build();
-
-            commentRepository.save(comment);
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to create comment: " + e.getMessage(), e);
-        }
+        Comment comment = Comment.builder()
+                .cId(request.getCId())
+                .cName(request.getCName())
+                .cComment(request.getCComment())
+                .c_Image(request.getC_Image())
+                .post(post)
+                .user(user)
+                .build();
+        commentRepository.save(comment);
     }
 
-    public List<Comment> getCommentsByPostId(Long postId) {
-        return commentRepository.findByPost_PostId(postId);
+    public List<Comment> getCommentsByUserAndPost(Long userId, Long postId) {
+        return commentRepository.findByUser_UserIdAndPost_PostId(userId, postId);
     }
 
     public void deleteComment(Long cId) {
