@@ -30,8 +30,8 @@ public class CommentService {
                 .orElseThrow(() -> new EntityNotFoundException("Post not found with id: " + request.getPostId()));
         System.out.println(request);
         Comment comment = Comment.builder()
-                .cId(request.getCId())
-                .cComment(request.getCComment())
+                .commId(request.getCommId())
+                .commComment(request.getCommComment())
                 .post(post)
                 .user(user)
                 .build();

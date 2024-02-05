@@ -15,8 +15,8 @@ import java.time.LocalDateTime;
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long cId;
-    private String cComment;
+    private Long commId;
+    private String commComment;
 
     @Column(name = "regDate", nullable = false, updatable = false)
     private LocalDateTime regDate;
