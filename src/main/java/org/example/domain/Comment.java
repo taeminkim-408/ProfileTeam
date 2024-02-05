@@ -16,12 +16,7 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cId;
-    @Nullable
-    private String cName;
-    @Column(nullable = false)
     private String cComment;
-    @Nullable
-    private String c_Image;
 
     @Column(name = "regDate", nullable = false, updatable = false)
     private LocalDateTime regDate;

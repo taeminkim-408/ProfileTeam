@@ -2,6 +2,7 @@ package org.example.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.example.domain.Comment;
+import org.example.domain.Post;
 import org.example.dto.request.CommentRequest;
 import org.example.service.CommentService;
 import org.springframework.http.ResponseEntity;
@@ -18,11 +19,9 @@ public class CommentController {
     @PostMapping("/comment/create")
     public void commentCreate (@RequestBody CommentRequest commentRequest) {commentService.create(commentRequest);}
 
-    @GetMapping("/comment/read/{userId}/{postId}")
-    public ResponseEntity<List<Comment>> getCommentsByUserAndPost(
-            @PathVariable Long userId,
-            @PathVariable Long postId) {
-        List<Comment> comments = commentService.getCommentsByUserAndPost(userId, postId);
+    @GetMapping("/comment/read/{postId}")
+    public ResponseEntity<List<Comment>> getCommentsByPost(@PathVariable Long postId) {
+        List<Comment> comments = commentService.getCommentsByPost(postId);
         return ResponseEntity.ok(comments);
     }
 

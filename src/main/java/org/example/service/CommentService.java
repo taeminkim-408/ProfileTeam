@@ -28,20 +28,18 @@ public class CommentService {
 
         Post post = postRepository.findById(request.getPostId())
                 .orElseThrow(() -> new EntityNotFoundException("Post not found with id: " + request.getPostId()));
-
+        System.out.println(request);
         Comment comment = Comment.builder()
                 .cId(request.getCId())
-                .cName(request.getCName())
                 .cComment(request.getCComment())
-                .c_Image(request.getC_Image())
                 .post(post)
                 .user(user)
                 .build();
         commentRepository.save(comment);
     }
 
-    public List<Comment> getCommentsByUserAndPost(Long userId, Long postId) {
-        return commentRepository.findByUser_UserIdAndPost_PostId(userId, postId);
+    public List<Comment> getCommentsByPost(Long postId) {
+        return commentRepository.findByPost_PostId(postId);
     }
 
     public void deleteComment(Long cId) {
