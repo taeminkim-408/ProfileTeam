@@ -16,8 +16,9 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/user/create")
-    public void userCreate (@RequestBody UserRequest userRequest) {
-        userService.create(userRequest);
+    public ResponseEntity<Long> userCreate(@RequestBody UserRequest userRequest) {
+        User user = userService.create(userRequest);
+        return ResponseEntity.ok(user.getUserId());
     }
 
     @GetMapping("/user/read")
